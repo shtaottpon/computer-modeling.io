@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Комп’ютерне моделювання та візуалізація процесів</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Montserrat',sans-serif;
+    background:#0f172a;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ===== HEADER ===== */
+
+header{
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+    background:rgba(15,23,42,0.95);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+nav{
+    width:90%;
+    max-width:1300px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 0;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:700;
+    color:#38bdf8;
+}
+
+.main-nav{
+    display:flex;
+    gap:35px;
+}
+
+.main-nav a{
+    text-decoration:none;
+    color:white;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.main-nav a:hover{
+    color:#38bdf8;
+}
+
+.sub-nav{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    padding:18px 20px;
+    border-top:1px solid rgba(255,255,255,0.05);
+    background:rgba(255,255,255,0.02);
+    flex-wrap:wrap;
+}
+
+.sub-nav a{
+    text-decoration:none;
+    color:#cbd5e1;
+    font-size:15px;
+    font-weight:500;
+    transition:0.3s;
+    position:relative;
+}
+
+.sub-nav a::after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:0%;
+    height:2px;
+    background:#38bdf8;
+    transition:0.3s;
+}
+
+.sub-nav a:hover{
+    color:#38bdf8;
+}
+
+.sub-nav a:hover::after{
+    width:100%;
+}
+
+.hero{
+    padding-top:180px;
+}
+
+/* ===== HERO ===== */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 20px 80px;
+    background:
+    linear-gradient(rgba(15,23,42,0.85),rgba(15,23,42,0.9)),
+    url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600') center/cover;
+}
+
+.hero-content{
+    max-width:900px;
+}
+
+.hero h1{
+    font-size:64px;
+    margin-bottom:25px;
+    line-height:1.1;
+}
+
+.hero span{
+    color:#38bdf8;
+}
+
+.hero p{
+    font-size:20px;
+    color:#cbd5e1;
+    line-height:1.8;
+    margin-bottom:35px;
+}
+
+.btn{
+    display:inline-block;
+    padding:16px 35px;
+    border-radius:50px;
+    background:#38bdf8;
+    color:#0f172a;
+    text-decoration:none;
+    font-weight:700;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+    background:white;
+}
+
+/* ===== SECTION ===== */
+
+section{
+    padding:110px 10%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:70px;
+}
+
+.section-title h2{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.section-title p{
+    color:#94a3b8;
+    max-width:700px;
+    margin:auto;
+    line-height:1.7;
+}
+
+/* ===== CARDS ===== */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.card{
+    background:#1e293b;
+    border-radius:20px;
+    padding:35px;
+    transition:0.4s;
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    border-color:#38bdf8;
+}
+
+.card h3{
+    margin-bottom:18px;
+    color:#38bdf8;
+    font-size:24px;
+}
+
+.card p{
+    color:#cbd5e1;
+    line-height:1.8;
+}
+
+/* ===== INFO ===== */
+
+.info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+    align-items:center;
+}
+
+.info img{
+    width:100%;
+    border-radius:25px;
+}
+
+.info-text h2{
+    font-size:42px;
+    margin-bottom:25px;
+}
+
+.info-text p{
+    color:#cbd5e1;
+    line-height:1.9;
+    margin-bottom:20px;
+}
+
+/* ===== GALLERY ===== */
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+}
+
+.gallery img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    border-radius:20px;
+    transition:0.4s;
+}
+
+.gallery img:hover{
+    transform:scale(1.04);
+}
+
+/* ===== CONTACT ===== */
+
+.contact-box{
+    background:#1e293b;
+    border-radius:25px;
+    padding:50px;
+    text-align:center;
+}
+
+.contact-box h2{
+    font-size:40px;
+    margin-bottom:20px;
+}
+
+.contact-box p{
+    color:#cbd5e1;
+    margin-bottom:25px;
+    line-height:1.8;
+}
+
+/* ===== FOOTER ===== */
+
+footer{
+    background:#020617;
+    text-align:center;
+    padding:30px;
+    color:#94a3b8;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media(max-width:900px){
+
+    nav{
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .sub-nav{
+        gap:20px;
+        padding:15px;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .main-nav{
+        gap:20px;
+    }
+
+    .sub-nav{
+        font-size:14px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<!-- ===== ЗАМІНИ СТАРИЙ NAV НА ЦЕЙ ===== -->
+
+<header>
+
+    <nav>
+
+        <div class="logo">
+            ModelingTech
+        </div>
+
+        <!-- ОСНОВНА НАВІГАЦІЯ -->
+
+        <div class="main-nav">
+
+            <a href="#home">Головна</a>
+
+        </div>
+
+    </nav>
+
+    <!-- ДОДАТКОВЕ МЕНЮ ЯК НА ПРИКЛАДІ -->
+
+    <div class="sub-nav">
+
+        <a href="#about">Про моделювання</a>
+        <a href="#research">Дослідження</a>
+        <a href="#models">Види моделей</a>
+        <a href="#technology">Технології</a>
+        <a href="#visual">Візуалізація</a>
+        <a href="#future-tech">Майбутнє</a>
+
+    </div>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <h1>
+            Комп’ютерне <span>моделювання</span><br>
+            та візуалізація процесів
+        </h1>
+
+        <p>
+            Сучасні цифрові технології дозволяють створювати моделі реальних
+            об’єктів, аналізувати складні процеси та візуалізувати інформацію
+            у вигляді графіків, анімацій і 3D-сцен.
+        </p>
+
+        <a href="#about" class="btn">
+            Дізнатися більше
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+    <div class="info">
+
+        <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?q=80&w=1200" alt="3D Modeling">
+
+        <div class="info-text">
+
+            <h2>Що таке комп’ютерне моделювання?</h2>
+
+            <p>
+                Комп’ютерне моделювання — це створення цифрових моделей
+                об’єктів, процесів або систем для їхнього дослідження
+                за допомогою комп’ютера.
+            </p>
+
+            <p>
+                Такі моделі використовуються у медицині, інженерії,
+                транспорті, освіті, економіці та навіть у створенні
+                сучасних відеоігор і фільмів.
+            </p>
+
+            <p>
+                Завдяки цифровим технологіям можна проводити експерименти
+                без ризику та великих фінансових витрат.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===== ДОДАЙ ЦЕЙ КОД ПІСЛЯ СЕКЦІЇ ABOUT ===== -->
+
+<section id="research">
+
+    <div class="section-title">
+
+        <h2>Роль моделювання у сучасному світі</h2>
+
+        <p>
+            Комп’ютерне моделювання використовується майже в усіх сферах життя —
+            від науки та медицини до космічних досліджень і створення відеоігор.
+        </p>
+
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Медицина</h3>
+
+            <p>
+                За допомогою комп’ютерних моделей лікарі можуть досліджувати
+                роботу серця, мозку та інших органів людини. Сучасні технології
+                дозволяють створювати тривимірні моделі організму, що значно
+                покращує діагностику та лікування пацієнтів.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Інженерія</h3>
+
+            <p>
+                Інженери використовують цифрові моделі для тестування автомобілів,
+                літаків і будівель ще до початку виробництва. Це дозволяє
+                зменшити витрати, підвищити безпеку та знайти оптимальні рішення.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Освіта</h3>
+
+            <p>
+                Інтерактивні моделі допомагають учням краще зрозуміти складні теми:
+                рух планет, хімічні реакції, фізичні процеси та будову клітини.
+                Навчання стає більш цікавим і наочним.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- MODELS -->
+
+<section id="models">
+
+    <div class="section-title">
+
+        <h2>Види комп’ютерних моделей</h2>
+
+        <p>
+            Існує багато типів моделей, які допомагають досліджувати
+            різні процеси та системи.
+        </p>
+
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Математичні</h3>
+
+            <p>
+                Використовують формули та рівняння для опису
+                фізичних, економічних та технічних процесів.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Імітаційні</h3>
+
+            <p>
+                Відтворюють поведінку систем у часі,
+                наприклад рух транспорту або роботу мереж.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>3D-моделі</h3>
+
+            <p>
+                Застосовуються у дизайні, архітектурі,
+                кінематографі та комп’ютерних іграх.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===== ДОДАЙ ЦЕ ПІСЛЯ СЕКЦІЇ MODELS ===== -->
+
+<section id="technology">
+
+    <div class="info">
+
+        <div class="info-text">
+
+            <h2>Сучасні технології візуалізації</h2>
+
+            <p>
+                Візуалізація процесів допомагає людям швидше сприймати інформацію
+                та аналізувати великі обсяги даних. Завдяки сучасним технологіям
+                науковці можуть створювати інтерактивні карти, 3D-анімації та
+                цифрові симуляції складних процесів.
+            </p>
+
+            <p>
+                Одним із найважливіших напрямів є використання віртуальної
+                та доповненої реальності. Вони дозволяють взаємодіяти
+                з моделями майже так само, як із реальними об’єктами.
+            </p>
+
+            <p>
+                Сьогодні візуалізація активно використовується у медицині,
+                архітектурі, дизайні, кіноіндустрії та наукових дослідженнях.
+            </p>
+
+        </div>
+
+        <img src="https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?q=80&w=1200" alt="VR">
+
+    </div>
+
+</section>
+
+<!-- VISUAL -->
+
+<section id="visual">
+
+    <div class="section-title">
+
+        <h2>Візуалізація процесів</h2>
+
+        <p>
+            Візуалізація допомагає людям швидше сприймати складну інформацію.
+        </p>
+
+    </div>
+
+    <div class="gallery">
+
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200" alt="Visualization">
+
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200" alt="Technology">
+
+        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1200" alt="AI">
+
+    </div>
+
+</section>
+
+<!-- ===== ДОДАЙ ЦЕ ПІСЛЯ СЕКЦІЇ VISUAL ===== -->
+
+<section id="future-tech">
+
+    <div class="section-title">
+
+        <h2>Майбутнє цифрових технологій</h2>
+
+        <p>
+            У майбутньому комп’ютерне моделювання стане ще важливішим
+            завдяки розвитку штучного інтелекту та великих обчислювальних систем.
+        </p>
+
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Штучний інтелект</h3>
+
+            <p>
+                Сучасні системи штучного інтелекту можуть аналізувати великі
+                обсяги інформації та самостійно вдосконалювати моделі.
+                Це відкриває нові можливості для науки та техніки.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Розумні міста</h3>
+
+            <p>
+                Науковці створюють цифрові копії міст для аналізу транспорту,
+                екології та використання ресурсів. Такі системи допоможуть
+                покращити життя людей та зменшити навантаження на природу.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Космічні дослідження</h3>
+
+            <p>
+                Комп’ютерне моделювання допомагає досліджувати космос,
+                прогнозувати рух планет і створювати моделі майбутніх
+                космічних місій.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===== ЗАМІНИ СЕКЦІЮ CONTACT НА ЦЮ ===== -->
+
+<section id="contact">
+
+    <div class="contact-box">
+
+        <h2>Коротко про головне</h2>
+
+        <p>
+            Комп’ютерне моделювання та візуалізація процесів є одними
+            з найважливіших технологій сучасності. Вони дозволяють
+            досліджувати складні явища, економити ресурси, підвищувати
+            безпеку та створювати нові наукові відкриття.
+        </p>
+
+        <p>
+            Сьогодні моделювання використовується практично в усіх сферах життя:
+            у медицині, транспорті, освіті, економіці, космічних дослідженнях
+            та створенні комп’ютерних ігор.
+        </p>
+
+        <p>
+            У майбутньому роль цих технологій лише зростатиме,
+            адже вони стають основою розвитку науки та інновацій.
+        </p>
+
+        <a href="#home" class="btn">
+            Повернутися на головну
+        </a>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+    © 2026 | Комп’ютерне моделювання та візуалізація процесів
+</footer>
+
+</body>
+</html>
